@@ -28,7 +28,6 @@ export class RadiostationsPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,private afstore:AngularFirestore) {
     this.radiostationColl = this.afstore.collection("Radiostations")
     this.radiostations = this.radiostationColl.valueChanges();
-
   }
 
   navToTopics(){
