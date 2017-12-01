@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {IonicPage, Item, NavController, NavParams} from 'ionic-angular';
+import {AdminradiostationsPage} from "../adminradiostations/adminradiostations";
 import {TopicsPage} from "../topics/topics";
 import {AngularFirestore, AngularFirestoreCollection} from "angularfire2/firestore";
 import {Observable} from "rxjs/Observable";
@@ -32,6 +33,10 @@ export class RadiostationsPage {
 
   navToTopics(){
     this.navCtrl.push(TopicsPage)
+  }
+
+  navToAddRadioStation(){
+    this.navCtrl.push(AdminradiostationsPage)
   }
 
 }
