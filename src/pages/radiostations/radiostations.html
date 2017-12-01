@@ -19,7 +19,8 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
+  <ion-searchbar placeholder="Search for station name or frequency"></ion-searchbar>
   <ion-list>
     <ion-item *ngFor="let radiostation of radiostations | async" (click)="navToTopics()">
       <ion-avatar item-start>
