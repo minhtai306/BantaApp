@@ -4,9 +4,6 @@ import {AngularFireAuth} from "angularfire2/auth";
 import { SMS } from '@ionic-native/sms'
 import {RadiostationsPage} from "../radiostations/radiostations";
 
-var inputNumber:string;
-var SMSNumber:string;
-
 @Component({
   selector: 'page-verification',
   templateUrl: 'verification.html'
@@ -16,14 +13,25 @@ var SMSNumber:string;
 
 export class VerificationPage {
 
+  inputCode:string;
+  inputSMSNumber:string;
+  randomCode:string;
+  options:any;
+
   constructor(public navCtrl: NavController, private smsVar: SMS,private afauth:AngularFireAuth) {
 
+    this.inputCode = '';
+    this.inputSMSNumber = '';
+    this.randomCode = '';
+    this.options = '';
   }
 
 
-  sendSMS(){
 
-    var options={
+  prepareSMS() {
+    this.randomCode = (Math.floor(1000 + Math.random() * 9000)).toString();
+
+    this.options={
       replaceLineBreaks: false, // true to replace \n by a new line, false by default
       android: {
         //intent: 'INTENT'  // Opens Default sms app
@@ -31,17 +39,37 @@ export class VerificationPage {
         intent: ''
       }
     }
-    this.smsVar.send('+61487544987', '3354',options)
+
+    if (this.inputSMSNumber == '') {
+      alert("Please enter a valid SMS number");
+    }
+    else {
+      this.sendSMS();
+    }
+
+  }
+
+  sendSMS(){
+
+
+
+    this.smsVar.send(this.inputSMSNumber, this.randomCode, this.options)
       .then(()=>{
-        alert("success");
+        alert("SMS Success");
       },()=>{
-        alert("failed");
+        alert("SMS Failed");
       });
   }
 
   submit(){
 
-    alert("Registration successful");
+    if (this.inputCode == this.randomCode) {
+      alert("Registration successful");
+    }
+    else {
+      alert("Please try again");
+    }
+
   }
 
 

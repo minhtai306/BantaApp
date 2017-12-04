@@ -13,10 +13,12 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-input type="text" value="inputNumber" placeholder="Enter your phone number"></ion-input>
-  <button ion-button (click)="sendSMS()">Send SMS</button>
+  <ion-input type="text" value="" placeholder="Enter phone number with country code"
+  [(ngModel)]="inputSMSNumber"></ion-input>
+  
+  <button ion-button (click)="prepareSMS()">Send SMS</button>
 
-  <ion-input type="text" value="" placeholder="Enter unique code"></ion-input>
+  <ion-input type="text" value="" placeholder="Enter unique code" [(ngModel)]="inputCode"></ion-input>
   <button ion-button (click)="submit()">Submit</button>
 
   <button ion-button (click)="signOut()">Signout</button>
