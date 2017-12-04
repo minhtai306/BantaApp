@@ -4,6 +4,7 @@ import {FCM} from "@ionic-native/fcm";
 import {AngularFirestore, AngularFirestoreCollection} from "angularfire2/firestore";
 import {Observable} from "rxjs/Observable";
 import {AdminTopicPage} from "../admin-topic/admin-topic";
+import {Topic} from "../../assets/config/interfaces";
 
 /**
  * Generated class for the TopicsPage page.
@@ -11,8 +12,6 @@ import {AdminTopicPage} from "../admin-topic/admin-topic";
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
-
-interface Topic { radiostationId:string,topicName: string}
 
 @IonicPage()
 @Component({
@@ -23,6 +22,7 @@ export class TopicsPage {
 
   private radiostationId:string;
   private radiostationName: string;
+  private radiostationFreq: string;
 
   private topicColl: AngularFirestoreCollection<Topic>;
   private topics: Observable<Topic[]>
@@ -30,6 +30,7 @@ export class TopicsPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,private fcm:FCM,private afstore:AngularFirestore) {
     this.radiostationId = this.navParams.get("id")
     this.radiostationName = this.navParams.get("title");
+    this.radiostationFreq = this.navParams.get('frequency')
     this.topicColl = this.afstore.collection("Topics",ref =>
       ref.where('radiostationId','==',this.radiostationId)
     );
@@ -37,7 +38,6 @@ export class TopicsPage {
   }
 
   navToAddTopic(){
-    console.log(this.radiostationId)
     this.navCtrl.push(AdminTopicPage,{id: this.radiostationId})
   }
 
