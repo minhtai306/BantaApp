@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams,PopoverController } from 'ionic-angular';
-import {RadiostationsPage} from "../radiostations/radiostations";
+import {VerificationPage} from "../verification/verification";
 import {PopoverPage} from "../popover/popover";
 import {AngularFireAuth} from "angularfire2/auth";
 
@@ -38,7 +38,7 @@ export class RegisterPage {
     //TODO cross check password
     this.afauth.auth.createUserWithEmailAndPassword(this.email,this.password)
       .then((result) => {
-        this.navCtrl.push(RadiostationsPage)
+        this.navCtrl.push(VerificationPage)
       })
       .catch((error)=>{
       console.log("shit")
