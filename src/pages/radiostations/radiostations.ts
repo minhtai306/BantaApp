@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import {IonicPage, Item, NavController, NavParams} from 'ionic-angular';
+import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {AdminradiostationsPage} from "../adminradiostations/adminradiostations";
 import {TopicsPage} from "../topics/topics";
 import {AngularFirestore, AngularFirestoreCollection} from "angularfire2/firestore";
 import {Observable} from "rxjs/Observable";
+import {Radiostation,RadiostationId} from "../../assets/config/interfaces";
 
 /**
  * Generated class for the RadiostationsPage page.
@@ -12,7 +13,6 @@ import {Observable} from "rxjs/Observable";
  * Ionic pages and navigation.
  */
 
-interface Radiostation { title: string; frequency: string; }
 
 @IonicPage()
 @Component({
@@ -22,20 +22,30 @@ interface Radiostation { title: string; frequency: string; }
 export class RadiostationsPage {
 
   radiostationColl: AngularFirestoreCollection<Radiostation>;
-  radiostations: Observable<Radiostation[]>
+  radiostations: Observable<RadiostationId[]>
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private afstore:AngularFirestore) {
-    this.radiostationColl = this.afstore.collection("Radiostations")
-    this.radiostations = this.radiostationColl.valueChanges();
-
+    //get the collection "Radiostations" from firestore
+    this.radiostationColl = this.afstore.collection<Radiostation>("Radiostations")
+    //retrieve all the documents in the collection including the id
+    this.radiostations = this.radiostationColl.snapshotChanges()
+      .map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data() as Radiostation;
+          const id = a.payload.doc.id;
+          return {id,...data}
+        })
+      });
   }
 
-  navToTopics(){
-    this.navCtrl.push(TopicsPage)
+  navToTopics(radiostation:Radiostation){
+    //navigate to topics page with radiostation as parameter
+    this.navCtrl.push(TopicsPage,radiostation)
   }
 
   navToAddRadioStation(){
+    //navigate to the administration to add new radiostation
     this.navCtrl.push(AdminradiostationsPage)
   }
 

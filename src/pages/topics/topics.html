@@ -7,12 +7,22 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>topics</ion-title>
+    <ion-title>{{radiostationName}} {{radiostationFreq}}</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="navToAddTopic()">
+        <ion-icon name="add-circle"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+  <ion-list>
+    <ion-item *ngFor="let topic of topics | async">
+      <h2>{{topic.topicName}}</h2>
+    </ion-item>
+  </ion-list>
 
 </ion-content>
