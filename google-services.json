@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "704951282979",
+    "firebase_url": "https://banta-d0749.firebaseio.com",
+    "project_id": "banta-d0749",
+    "storage_bucket": "banta-d0749.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:704951282979:android:cc571ef8b3737177",
+        "android_client_info": {
+          "package_name": "com.banta"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "704951282979-gihq76bavb3esvsmpmc7p8cjtbqmr40g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.banta",
+            "certificate_hash": "a2ed7373ed7b354eb2e0b99222d4e3a1f2e55e6c"
+          }
+        },
+        {
+          "client_id": "704951282979-oifj3am8nt4m9fdla2c11vhb7sm8ojd9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAscSLZu1uMxcHqh6fgAtFIug5MKbMao6o"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "704951282979-oifj3am8nt4m9fdla2c11vhb7sm8ojd9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

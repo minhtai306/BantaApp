@@ -22,7 +22,7 @@
 <ion-content>
   <ion-searchbar placeholder="Search for station name or frequency"></ion-searchbar>
   <ion-list>
-    <ion-item *ngFor="let radiostation of radiostations | async" (click)="navToTopics()">
+    <ion-item *ngFor="let radiostation of radiostations | async" (click)="navToTopics(radiostation)">
       <ion-avatar item-start>
       </ion-avatar>
       <h2>{{radiostation.title}}</h2>

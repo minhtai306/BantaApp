@@ -13,6 +13,7 @@ import {Observable} from "rxjs/Observable";
  */
 
 interface Radiostation { title: string; frequency: string; }
+export interface RadiostationId extends Radiostation { id: string; }
 
 @IonicPage()
 @Component({
@@ -22,16 +23,23 @@ interface Radiostation { title: string; frequency: string; }
 export class RadiostationsPage {
 
   radiostationColl: AngularFirestoreCollection<Radiostation>;
-  radiostations: Observable<Radiostation[]>
+  radiostations: Observable<RadiostationId[]>
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private afstore:AngularFirestore) {
-    this.radiostationColl = this.afstore.collection("Radiostations")
-    this.radiostations = this.radiostationColl.valueChanges();
+    this.radiostationColl = this.afstore.collection<Radiostation>("Radiostations")
+    this.radiostations = this.radiostationColl.snapshotChanges()
+      .map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data() as Radiostation;
+          const id = a.payload.doc.id;
+          return {id,...data}
+        })
+      });
   }
 
-  navToTopics(){
-    this.navCtrl.push(TopicsPage)
+  navToTopics(radiostation:Radiostation){
+    this.navCtrl.push(TopicsPage,radiostation)
   }
 
   navToAddRadioStation(){
