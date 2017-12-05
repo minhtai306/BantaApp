@@ -5,7 +5,7 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  <ion-navbar>
+  <ion-navbar hideBackButton>
     <ion-title>
       SMS Verification
     </ion-title>
@@ -13,16 +13,18 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-input type="text" value="" placeholder="Enter phone number with country code"
-  [(ngModel)]="inputSMSNumber"></ion-input>
-  
-  <button ion-button (click)="prepareSMS()">Send SMS</button>
+  <ion-item>
+    <ion-input type="text" value="" placeholder="Enter phone number with country code"
+    [(ngModel)]="inputSMSNumber"></ion-input>
+  </ion-item>
+  <button ion-button block class="general-button" (click)="prepareSMS()">Send SMS</button>
 
+  <ion-item>
   <ion-input type="text" value="" placeholder="Enter unique code" [(ngModel)]="inputCode"></ion-input>
-  <button ion-button (click)="submit()">Submit</button>
+  </ion-item>
+  <button ion-button block class="general-button" (click)="submit()">Submit</button>
+  <div class="center-content" ><a class="links" (click)="cancelVerification()">Cancel</a></div>
 
-  <button ion-button (click)="signOut()">Signout</button>
 
-  <button ion-button (click)="radiostations()">Continue</button>
 
 </ion-content>

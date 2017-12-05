@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {AdminradiostationsPage} from "../adminradiostations/adminradiostations";
 import {TopicsPage} from "../topics/topics";
+import {OptionsPage} from "../options/options";
 import {AngularFirestore, AngularFirestoreCollection} from "angularfire2/firestore";
 import {Observable} from "rxjs/Observable";
 import {Radiostation,RadiostationId} from "../../assets/config/interfaces";
@@ -44,9 +45,8 @@ export class RadiostationsPage {
     this.navCtrl.push(TopicsPage,radiostation)
   }
 
-  navToAddRadioStation(){
-    //navigate to the administration to add new radiostation
-    this.navCtrl.push(AdminradiostationsPage)
+  navToOptions(){
+    this.navCtrl.push(OptionsPage)
   }
 
 }

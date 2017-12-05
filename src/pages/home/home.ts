@@ -52,7 +52,6 @@ export class HomePage {
     this.afauth.auth.signInWithEmailAndPassword(this.email,this.password)
       .then((result) => {
         console.log("success");
-        this.navCtrl.push(RadiostationsPage);
       })
       .catch((error)=>{
         console.log(error);

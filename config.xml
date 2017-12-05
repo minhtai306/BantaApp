@@ -89,13 +89,10 @@
     <plugin name="cordova-plugin-inappbrowser" spec="^1.7.2" />
     <plugin name="cordova-plugin-fcm" spec="^2.1.2" />
     <plugin name="cordova-sms-plugin" spec="^0.1.11" />
-    <!--- Do not remove required for login funcitonality -->
-  <!--- /////////////////////////////////////////////////// -->
     <universal-links>
         <host name="tmv3g.app.goo.gl" scheme="https" />
         <host name="banta-d0749.firebaseapp.com" scheme="https">
             <path url="/__/auth/callback" />
         </host>
     </universal-links>
-  <!--- /////////////////////////////////////////////////// -->
 </widget>

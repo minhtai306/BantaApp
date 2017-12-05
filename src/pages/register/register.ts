@@ -34,29 +34,34 @@ export class RegisterPage {
   }
 
   registerUser(){
-    //TODO store user data
-    //TODO cross check password
-    this.afauth.auth.createUserWithEmailAndPassword(this.email,this.password)
-      .then((result) => {
-        this.navCtrl.push(VerificationPage,{
-          uid:result.uid,
-          displayName: this.username,
-          email: this.email,
-          provider: "Custom Login"
+
+    if(this.password === this.confirmPassword) {
+      this.afauth.auth.createUserWithEmailAndPassword(this.email, this.password)
+        .then((result) => {
+          result.updateProfile({displayName:this.username})
+            .then((user)=> {
+              console.log("new")
+              console.log(user)
+              console.log(result)
+              this.navCtrl.push(VerificationPage, {
+                uid: result.uid,
+                displayName: result.displayName,
+                email: result.email,
+                provider: result.providerId
+              })
+            })
         })
-      })
-      .catch((error)=>{
-      console.log("shit")
-        console.log(error)
-        var data = {
-          title: "Error",
-          content: error.message
-        }
+        .catch((error) => {
+          this.errorMessage("Error",error.message)
+        })
+    }
+    else{
+      this.errorMessage("Error","Passwords do not match")
+    }
+  }
 
-        this.popCtrl.create(PopoverPage,data).present()
-
-      })
-
+  errorMessage(title:string,content:string){
+    this.popCtrl.create(PopoverPage, {title: title,content:content}).present()
   }
 
 }

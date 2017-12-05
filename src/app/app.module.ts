@@ -13,6 +13,7 @@ import {TopicsPage} from "../pages/topics/topics";
 import {PopoverPage} from "../pages/popover/popover";
 import {AdminradiostationsPage} from "../pages/adminradiostations/adminradiostations";
 import {AdminTopicPage} from "../pages/admin-topic/admin-topic";
+import {OptionsPage} from "../pages/options/options";
 
 import {AngularFireModule} from 'angularfire2'
 import {AngularFireAuthModule} from 'angularfire2/auth'
@@ -39,7 +40,8 @@ export const firebaseconfig = {
     TopicsPage,
     PopoverPage,
     AdminradiostationsPage,
-    AdminTopicPage
+    AdminTopicPage,
+    OptionsPage
   ],
   imports: [
     BrowserModule,
@@ -58,7 +60,8 @@ export const firebaseconfig = {
     TopicsPage,
     PopoverPage,
     AdminradiostationsPage,
-    AdminTopicPage
+    AdminTopicPage,
+    OptionsPage
   ],
   providers: [
     StatusBar,

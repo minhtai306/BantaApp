@@ -31,6 +31,7 @@ export class VerificationPage {
     this.usersColl = this.afstore.collection("Users");
     this.uid = this.navParams.get("uid");
     this.displayName = this.navParams.get("displayName");
+    console.log(this.navParams)
     this.email = this.navParams.get("email");
     this.provider = this.navParams.get("provider");
     this.inputCode = '';
@@ -84,6 +85,7 @@ export class VerificationPage {
         phone: this.inputSMSNumber,
         provider: this.provider
       })
+      this.navCtrl.push(RadiostationsPage)
 
     }
     else {
@@ -92,16 +94,9 @@ export class VerificationPage {
 
   }
 
-
-  signOut() {
-    this.afauth.auth.signOut().then(result =>{
-      console.log("signed out")
-      this.navCtrl.pop()
-    })
+  cancelVerification(){
+    this.afauth.auth.signOut();
+    this.navCtrl.popToRoot();
   }
 
-  //testing for continuing to navigate to radio station page
-  radiostations(){
-
-  }
 }
