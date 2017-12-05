@@ -38,7 +38,12 @@ export class RegisterPage {
     //TODO cross check password
     this.afauth.auth.createUserWithEmailAndPassword(this.email,this.password)
       .then((result) => {
-        this.navCtrl.push(VerificationPage)
+        this.navCtrl.push(VerificationPage,{
+          uid:result.uid,
+          displayName: this.username,
+          email: this.email,
+          provider: "Custom Login"
+        })
       })
       .catch((error)=>{
       console.log("shit")

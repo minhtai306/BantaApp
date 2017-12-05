@@ -6,6 +6,7 @@ import {PopoverPage} from '../popover/popover'
 import {VerificationPage} from "../verification/verification";
 import {AngularFireAuth} from "angularfire2/auth";
 import * as firebase from 'firebase/app'
+import {AngularFirestore} from "angularfire2/firestore";
 
 @Component({
   selector: 'page-home',
@@ -15,16 +16,25 @@ export class HomePage {
 
   private email:string;
   private password:string
-  constructor(public navCtrl: NavController,public popCtrl: PopoverController,private afauth:AngularFireAuth) {
+  constructor(public navCtrl: NavController,public popCtrl: PopoverController,private afauth:AngularFireAuth,private afstore:AngularFirestore) {
     this.afauth.auth.onAuthStateChanged(currentUser => {
       if(currentUser){
-        console.log(currentUser)
-        if(currentUser.phoneNumber === null){
-          this.navCtrl.push(VerificationPage)
-        }
-        else{
-          this.navCtrl.push(RadiostationsPage)
-        }
+        this.afstore.collection("Users").doc(currentUser.uid).ref.get()
+          .then(doc => {
+            if(doc.exists){
+              console.log("doc exsit")
+              this.navCtrl.push(RadiostationsPage)
+            }
+            else{
+              console.log("doc doesnt exist")
+              this.navCtrl.push(VerificationPage,{
+                uid:currentUser.uid,
+                displayName: currentUser.displayName,
+                email: currentUser.email,
+                provider: currentUser.providerId
+              })
+            }
+          })
       }
     })
   }
