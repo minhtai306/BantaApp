@@ -5,4 +5,4 @@ export interface User {admin:boolean;email:string;firstName:string,lastName:stri
 
 export interface Topic { radiostationId:string,topicName: string}
 
-export interface Message{uid:string;message:string;dateCreated:any}
+export interface Message{uid:string;displayName:string;message:string;dateCreated:any}
