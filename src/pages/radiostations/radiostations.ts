@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {AdminradiostationsPage} from "../adminradiostations/adminradiostations";
-import {TopicsPage} from "../topics/topics";
+import {ChatPage} from "../chat/chat";
 import {OptionsPage} from "../options/options";
 import {AngularFirestore, AngularFirestoreCollection} from "angularfire2/firestore";
 import {Observable} from "rxjs/Observable";
@@ -42,7 +42,7 @@ export class RadiostationsPage {
 
   navToTopics(radiostation:Radiostation){
     //navigate to topics page with radiostation as parameter
-    this.navCtrl.push(TopicsPage,radiostation)
+    this.navCtrl.push(ChatPage,radiostation)
   }
 
   navToOptions(){

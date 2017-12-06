@@ -9,15 +9,17 @@ import { HomePage } from '../pages/home/home';
 import {RegisterPage} from "../pages/register/register";
 import {RadiostationsPage} from "../pages/radiostations/radiostations";
 import {VerificationPage} from "../pages/verification/verification";
-import {TopicsPage} from "../pages/topics/topics";
 import {PopoverPage} from "../pages/popover/popover";
 import {AdminradiostationsPage} from "../pages/adminradiostations/adminradiostations";
 import {AdminTopicPage} from "../pages/admin-topic/admin-topic";
 import {OptionsPage} from "../pages/options/options";
+import {ChatPage} from "../pages/chat/chat";
+
 
 import {AngularFireModule} from 'angularfire2'
 import {AngularFireAuthModule} from 'angularfire2/auth'
 import {AngularFirestoreModule} from "angularfire2/firestore";
+import {AngularFireDatabase, AngularFireDatabaseModule} from "angularfire2/database";
 import {SMS} from '@ionic-native/sms'
 import {FCM} from "@ionic-native/fcm";
 
@@ -37,16 +39,17 @@ export const firebaseconfig = {
     RegisterPage,
     RadiostationsPage,
     VerificationPage,
-    TopicsPage,
     PopoverPage,
     AdminradiostationsPage,
     AdminTopicPage,
-    OptionsPage
+    OptionsPage,
+    ChatPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(firebaseconfig),
+    AngularFireDatabaseModule,
     AngularFirestoreModule,
     AngularFireAuthModule,
   ],
@@ -57,17 +60,18 @@ export const firebaseconfig = {
     RegisterPage,
     RadiostationsPage,
     VerificationPage,
-    TopicsPage,
     PopoverPage,
     AdminradiostationsPage,
     AdminTopicPage,
-    OptionsPage
+    OptionsPage,
+    ChatPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     SMS,
     FCM,
+    AngularFireDatabase,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
