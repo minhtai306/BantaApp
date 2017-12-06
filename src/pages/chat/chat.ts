@@ -27,6 +27,7 @@ export class ChatPage {
   private displayName:string;
   private radiostation:string;
   private freq:string;
+  private photoUrl:string;
 
   private message:string;
   constructor(public navCtrl: NavController, public navParams: NavParams,private afstore:AngularFireDatabase,private afauth:AngularFireAuth) {
@@ -41,6 +42,7 @@ export class ChatPage {
     this.freq = this.navParams.data.frequency
     this.uid = this.afauth.auth.currentUser.uid
     this.displayName = this.afauth.auth.currentUser.displayName
+    this.photoUrl = this.afauth.auth.currentUser.photoURL
     this.msgColl = this.afstore.list('/channels/'+ this.navParams.data.id)
     this.messages = this.msgColl.valueChanges()
 
@@ -49,7 +51,7 @@ export class ChatPage {
   sendMessage() {
     console.log(this.message);
     let dateCreated = firebase.database.ServerValue.TIMESTAMP
-    let body = {uid:this.uid,displayName:this.displayName,message:this.message,dateCreated:dateCreated}
+    let body = {uid:this.uid,photoUrl:this.photoUrl,displayName:this.displayName,message:this.message,dateCreated:dateCreated}
     //let headers = new HttpHeaders();
     //headers.set('Authorization','key=AAAApCJe7SM:APA91bH5L79wZIg3-KginjC4xMtKjuI8yaL4W1KYTNNH4gzrD_wxgAuMoMlV1VsAD5EKvrvnfK5-CohLB0XqcxEgvGe3sL8A0BuoS1cADTjYXQnDTYDL6E1CTNwG-wlzJABfzziQVq8N')
     this.msgColl.push(body)
