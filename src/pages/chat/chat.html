@@ -9,37 +9,67 @@
   <ion-navbar>
     <ion-title>{{radiostation}} {{freq}} FM</ion-title>
   </ion-navbar>
+  <div class="text-content">
+    <ion-item no-lines>
+      <ion-avatar item-start>
+        <img src='{{photoUrl}}'>
+      </ion-avatar>
+      <h2>{{displayName}}</h2>
+      <h3>{{time}} {{date}}</h3>
+    </ion-item>
+    <ion-item no-lines text-wrap>
+      <p>{{text}}</p>
+    </ion-item>
+  </div>
+
+
+  <div class="social-options">
+    <ion-icon name="arrow-round-up"></ion-icon>
+    <p>21</p>
+    <ion-icon name="arrow-round-down"></ion-icon>
+    <ion-icon name="chatbubbles"></ion-icon>
+    <p>1001</p>
+    <div id="social-options-buttons">
+      <button class="general-button">Reply</button>
+      <button class="general-button">Follow</button>
+    </div>
+
+  </div>
+
 
 </ion-header>
 
 
 <ion-content>
-  <ion-list>
-    <ion-item *ngFor="let msg of messages | async" (click)="navToTopics(radiostation)">
-      <div *ngIf="msg.uid == uid; then thisUser else otherUser"></div>
-
-      <ng-template #thisUser>
-        <p class="thisUser"><b>{{msg.displayName}}</b></p>
-        <p class="thisUser">{{msg.message}}</p>
-      </ng-template>
-
-      <ng-template #otherUser>
-        <p><b>{{msg.displayName}}</b></p>
-        <p>{{msg.message}}</p>
-      </ng-template>
 
 
-    </ion-item>
-  </ion-list>
+  <div *ngFor="let msg of messages | async" [ngClass]="{chatbubbleright:msg.uid==uid,chatbubbleleft:msg.uid!=uid}">
 
+    <ng-template [ngIf]="msg.uid == uid">
+      <div class="chat-content">
+        <p class="display-name"><b>{{msg.displayName}}</b></p>
+        <p class="message">{{msg.message}}</p>
+      </div>
+      <img src="{{msg.photoUrl}}">
+    </ng-template>
+
+    <ng-template [ngIf]="msg.uid != uid">
+      <img src="{{msg.photoUrl}}">
+      <div class="chat-content">
+        <p class="display-name"><b>{{msg.displayName}}</b></p>
+        <p class="message">{{msg.message}}</p>
+      </div>
+    </ng-template>
+
+  </div>
 
 </ion-content>
 
 <ion-footer>
   <div class="message-container">
-  <ion-input id="message-input" type="text" placeholder="Message" [(ngModel)]="message"></ion-input>
-  <button ion-button block (click)="sendMessage()">Send
-    <ion-icon name="send"></ion-icon>
-  </button>
+    <ion-input class="message-input" type="text" placeholder="Message" [(ngModel)]="message"></ion-input>
+    <button ion-button (click)="sendMessage()">
+      <ion-icon name="send"></ion-icon>
+    </button>
   </div>
 </ion-footer>

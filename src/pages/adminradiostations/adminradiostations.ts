@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {AngularFirestore, AngularFirestoreCollection} from "angularfire2/firestore";
+import {AngularFireDatabase, AngularFireList} from "angularfire2/database";
 
 /**
  * Generated class for the AdminradiostationsPage page.
@@ -20,14 +21,14 @@ export class AdminradiostationsPage {
   private title:string;
   private frequency:string;
 
-  private radiostationColl: AngularFirestoreCollection<Radiostation>;
+  private radiostationColl: AngularFireList<Radiostation>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,private afstore:AngularFirestore) {
-    this.radiostationColl = this.afstore.collection("Radiostations")
+  constructor(public navCtrl: NavController, public navParams: NavParams,private afstore:AngularFireDatabase) {
+    this.radiostationColl = this.afstore.list('/radiostations')
   }
 
   addRadioStation(){
-    this.radiostationColl.add({title: this.title,frequency: this.frequency})
+    this.radiostationColl.push({title: this.title,frequency: this.frequency})
     this.navCtrl.pop()
   }
 

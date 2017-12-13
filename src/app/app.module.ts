@@ -14,6 +14,7 @@ import {AdminradiostationsPage} from "../pages/adminradiostations/adminradiostat
 import {AdminTopicPage} from "../pages/admin-topic/admin-topic";
 import {OptionsPage} from "../pages/options/options";
 import {ChatPage} from "../pages/chat/chat";
+import {TextsPage} from "../pages/texts/texts";
 
 
 import {AngularFireModule} from 'angularfire2'
@@ -43,7 +44,8 @@ export const firebaseconfig = {
     AdminradiostationsPage,
     AdminTopicPage,
     OptionsPage,
-    ChatPage
+    ChatPage,
+    TextsPage
   ],
   imports: [
     BrowserModule,
@@ -64,7 +66,8 @@ export const firebaseconfig = {
     AdminradiostationsPage,
     AdminTopicPage,
     OptionsPage,
-    ChatPage
+    ChatPage,
+    TextsPage
   ],
   providers: [
     StatusBar,

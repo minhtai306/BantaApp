@@ -24,9 +24,10 @@
   <ion-list>
     <ion-item *ngFor="let radiostation of radiostations | async" (click)="navToTopics(radiostation)">
       <ion-avatar item-start>
+        <img src='assets/imgs/radiostation-temp-icon.png'>
       </ion-avatar>
-      <h2>{{radiostation.title}}</h2>
-      <p>{{radiostation.frequency}}</p>
+      <h2>{{radiostation.title}} {{radiostation.frequency}} </h2>
+      <p>Melbourne</p>
     </ion-item>
   </ion-list>
 </ion-content>

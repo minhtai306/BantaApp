@@ -30,3 +30,16 @@
   align-items: center;
   display: flex;
 }
+
+.message-container{
+  padding: 1%;
+  background-color: #bfbfbf;
+  display: flex;
+}
+
+.message-input{
+  background-color: white;
+  padding-left: 1%;
+  padding-right: 1%;
+  width: 80%;
+}
