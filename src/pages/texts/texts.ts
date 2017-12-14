@@ -63,6 +63,7 @@ export class TextsPage {
   }
 
   navToChat(text){
+    //text
     this.navCtrl.push(ChatPage,{text:text,radiostation:this.radiostation,freq:this.freq})
   }
 
