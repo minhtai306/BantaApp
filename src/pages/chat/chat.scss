@@ -1,6 +1,122 @@
 page-chat {
-  .thisUser{
-    color: blue;
-    text-align: right;
+
+  .chatbubbleleft{
+
+    padding: 10px;
+    margin: 10px 0;
+    display: flex;
+    align-items:flex-start;
+  }
+
+  .chatbubbleright{
+    padding: 10px;
+    margin: 10px 0;
+    display: flex;
+    align-items:flex-start;
+    justify-content: flex-end;
+
+  }
+
+  .display-name{
+    margin-top: 2px;
+    margin-bottom: 0px;
+  }
+
+  .message{
+    margin-bottom: 2px;
+    margin-top: 0px;
+  }
+
+
+  .chatbubbleleft img{
+    float: left;
+    max-width: 40px;
+    width: 100%;
+    margin-right: 20px;
+    border-radius: 50%;
+  }
+
+  .chatbubbleright img{
+    float: right;
+    max-width: 40px;
+    width: 100%;
+    margin-left: 20px;
+    border-radius: 50%;
+  }
+
+  .chatbubbleleft .chat-content{
+    border: 1px solid #dedede;
+    background-color: #f1f1f1;
+  }
+
+  .chatbubbleright .chat-content{
+    border: 1px solid #488AFF;
+    background-color: #d6e5ff;
+  }
+
+  .chat-content{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+
+
+.text-container{
+  padding-left: 2px;
+  padding-right: 2px;
+  padding-top: 5px;
+  background-color: #bfbfbf;
+  .text-content{
+    border-radius: 10px 10px 0px 0px;
+  }
+
+}
+
+  .social-options {
+    background-color: white;
+    border-top: 1px ridge #bfbfbf;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    height: 30px;
+    padding-left: 15px;
+    padding-right: 15px;
+    justify-content: space-between;
+    .vote-container {
+      display: flex;
+      align-items: center;
+      * {
+        margin-right: 10px;
+      }
+    }
+    .chat-container {
+      display: flex;
+      align-items: center;
+      * {
+        margin-right: 10px;
+      }
+    }
+    .social-options-buttons {
+      flex-grow: 0.5;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      button {
+        border-radius: 5px;
+        padding: 5px;
+        width: 49%;
+      }
+    }
+  }
+
+
+  .following-button {
+    background: #488AFF  !important;
+    color: white;
+    border: 2px solid white;
   }
 }

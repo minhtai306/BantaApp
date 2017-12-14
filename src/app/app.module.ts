@@ -14,6 +14,7 @@ import {AdminradiostationsPage} from "../pages/adminradiostations/adminradiostat
 import {AdminTopicPage} from "../pages/admin-topic/admin-topic";
 import {OptionsPage} from "../pages/options/options";
 import {ChatPage} from "../pages/chat/chat";
+import {TextsPage} from "../pages/texts/texts";
 
 
 import {AngularFireModule} from 'angularfire2'
@@ -22,6 +23,7 @@ import {AngularFirestoreModule} from "angularfire2/firestore";
 import {AngularFireDatabase, AngularFireDatabaseModule} from "angularfire2/database";
 import {SMS} from '@ionic-native/sms'
 import {FCM} from "@ionic-native/fcm";
+import { RadiostationProvider } from '../providers/radiostation/radiostation';
 
 export const firebaseconfig = {
   apiKey: "AIzaSyB70l8eKDrXgg46VMwUu6Z9HSvZseOfiYk",
@@ -43,7 +45,8 @@ export const firebaseconfig = {
     AdminradiostationsPage,
     AdminTopicPage,
     OptionsPage,
-    ChatPage
+    ChatPage,
+    TextsPage
   ],
   imports: [
     BrowserModule,
@@ -64,7 +67,8 @@ export const firebaseconfig = {
     AdminradiostationsPage,
     AdminTopicPage,
     OptionsPage,
-    ChatPage
+    ChatPage,
+    TextsPage
   ],
   providers: [
     StatusBar,
@@ -72,7 +76,8 @@ export const firebaseconfig = {
     SMS,
     FCM,
     AngularFireDatabase,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    RadiostationProvider
   ]
 })
 export class AppModule {}
