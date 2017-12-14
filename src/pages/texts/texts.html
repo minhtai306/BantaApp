@@ -7,7 +7,9 @@
 <ion-header>
 
   <ion-navbar>
+
     <ion-title>{{radiostation}} {{freq}}</ion-title>
+    <img src='assets/imgs/radiostation-temp-icon.png' width="40px" height="40px">
   </ion-navbar>
 
 </ion-header>
@@ -15,14 +17,43 @@
 
 <ion-content>
   <ion-list>
-    <ion-item *ngFor="let text of texts | async" (click)="navToChat(text)" text-wrap>
-    <ion-avatar item-start>
+    <ion-item class="text-container" *ngFor="let text of texts | async" (click)="navToChat(text)" text-wrap no-lines>
+
+      <ion-avatar item-start>
       <img src='{{text.photoUrl}}'>
     </ion-avatar>
-    <h2>{{text.displayName}}</h2>
-    <h3>{{text.date}} {{text.time}}</h3>
-    <p>{{text.text}}</p>
+
+      <div class="text-name-time">
+        <h2><b>{{text.displayName}}</b></h2>
+        <p>{{text.time}}</p>
+      </div>
+
+      <p>{{text.text}}</p>
+
+      <div class="text-opts">
+
+        <div class="text-up-down-opts">
+            <ion-icon name="arrow-round-up"></ion-icon>
+            <p>21</p>
+            <ion-icon name="arrow-round-down"></ion-icon>
+        </div>
+
+        <div class="text-chat-opts">
+            <ion-icon name="chatbubbles"></ion-icon>
+            <p>1001</p>
+        </div>
+
+
+        <div class="text-social-opts">
+          <button class="general-button">Reply</button>
+          <button class="general-button">Share</button>
+        </div>
+
+      </div>
+
   </ion-item>
+
+
   </ion-list>
 
 </ion-content>

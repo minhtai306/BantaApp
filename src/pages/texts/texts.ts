@@ -38,7 +38,7 @@ export class TextsPage {
 
     console.log(this.navParams.data)
     this.radiostation = this.navParams.data.title
-    this.freq = this.navParams.data.freq
+    this.freq = this.navParams.data.frequency
   }
 
   ionViewDidLoad() {
@@ -63,7 +63,7 @@ export class TextsPage {
   }
 
   navToChat(text){
-    this.navCtrl.push(ChatPage,text)
+    this.navCtrl.push(ChatPage,{text:text,radiostation:this.radiostation,freq:this.freq})
   }
 
 }

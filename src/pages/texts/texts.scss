@@ -1,3 +1,63 @@
 page-texts {
+  ion-navbar *{
+    display: flex;
+    img{
+      border-radius: 100px;
+    }
+  }
 
+  .text-container{
+    margin-top: 5px !important;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+    .text-name-time{
+      display: flex;
+      h2{
+        margin-right: auto;
+      }
+    }
+    .text-opts{
+      display: flex;
+      justify-content: space-between;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      padding-top: 2%;
+      .text-up-down-opts{
+        display: flex;
+        flex-grow: 1;
+        justify-content: space-between;
+        padding-left: 10%;
+        padding-right: 10%;
+
+      }
+      .text-chat-opts{
+        display: flex;
+        flex-grow: 1;
+        justify-content: space-between;
+        padding-left: 5%;
+        padding-right: 5%;
+      }
+      .text-social-opts{
+        display: flex;
+      }
+    }
+  }
+
+  .social-options{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    .vote-container{
+      display: flex;
+      *{
+        margin-right: 5px;
+      }
+    }
+    .chat-container{
+      display: flex;
+      *{
+        margin-right: 5px;
+      }
+    }
+  }
 }

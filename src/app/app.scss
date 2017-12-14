@@ -18,8 +18,16 @@
   background: white;
   color: #488AFF;
   border: 2px solid #488AFF;
+  border-radius: 5px;
 }
 
+ion-title{
+  font-family: Helvetica !important;
+  font-size: 18px !important;
+  font-weight: bold !important;
+  display: flex;
+  margin-left: 9px;
+}
 .links{
   color: #488AFF;
   text-decoration: underline;
@@ -43,3 +51,7 @@
   padding-right: 1%;
   width: 80%;
 }
+
+
+
+
