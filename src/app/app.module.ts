@@ -25,6 +25,8 @@ import {SMS} from '@ionic-native/sms'
 import {FCM} from "@ionic-native/fcm";
 import { RadiostationProvider } from '../providers/radiostation/radiostation';
 
+import {SearchPipe} from "../pipes/search/search";
+
 export const firebaseconfig = {
   apiKey: "AIzaSyB70l8eKDrXgg46VMwUu6Z9HSvZseOfiYk",
   authDomain: "banta-d0749.firebaseapp.com",
@@ -46,7 +48,8 @@ export const firebaseconfig = {
     AdminTopicPage,
     OptionsPage,
     ChatPage,
-    TextsPage
+    TextsPage,
+    SearchPipe
   ],
   imports: [
     BrowserModule,

@@ -25,6 +25,7 @@ export class AdminradiostationsPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private afstore:AngularFireDatabase) {
     this.radiostationColl = this.afstore.list('/radiostations')
+    this.frequency = '';
   }
 
   addRadioStation(){
