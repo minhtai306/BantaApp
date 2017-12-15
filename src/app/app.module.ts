@@ -24,6 +24,7 @@ import {AngularFireDatabase, AngularFireDatabaseModule} from "angularfire2/datab
 import {SMS} from '@ionic-native/sms'
 import {FCM} from "@ionic-native/fcm";
 import { RadiostationProvider } from '../providers/radiostation/radiostation';
+import { SmsProvider } from '../providers/sms/sms';
 
 import {SearchPipe} from "../pipes/search/search";
 
@@ -80,7 +81,8 @@ export const firebaseconfig = {
     FCM,
     AngularFireDatabase,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    RadiostationProvider
+    RadiostationProvider,
+    SmsProvider
   ]
 })
 export class AppModule {}
