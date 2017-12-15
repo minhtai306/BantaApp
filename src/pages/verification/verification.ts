@@ -5,6 +5,7 @@ import { SMS } from '@ionic-native/sms'
 import {RadiostationsPage} from "../radiostations/radiostations";
 import {AngularFirestore, AngularFirestoreCollection} from "angularfire2/firestore";
 import {User} from "../../assets/config/interfaces";
+import {SmsProvider} from "../../providers/sms/sms";
 
 @Component({
   selector: 'page-verification',
@@ -27,7 +28,10 @@ export class VerificationPage {
   randomCode:string;
   options:any;
 
-  constructor(public navCtrl: NavController,public navParams: NavParams,private smsVar: SMS,private afauth:AngularFireAuth,private afstore:AngularFirestore) {
+  constructor(public navCtrl: NavController,public navParams: NavParams,
+    private smsVar: SMS,private afauth:AngularFireAuth,
+    private afstore:AngularFirestore,
+    private smsProvider: SmsProvider) {
     this.usersColl = this.afstore.collection("Users");
     this.uid = this.navParams.get("uid");
     this.displayName = this.navParams.get("displayName");
@@ -58,7 +62,8 @@ export class VerificationPage {
       alert("Please enter a valid SMS number");
     }
     else {
-      this.sendSMS();
+      this.smsProvider.sendSMS(this.inputSMSNumber, this.randomCode);
+      //this.sendSMS();
     }
 
   }
@@ -77,7 +82,8 @@ export class VerificationPage {
 
   submit(){
 
-    if (this.inputCode == this.randomCode) {
+    if ((this.inputCode == this.randomCode) &&
+    (this.inputCode != '')) {
       alert("Registration successful");
       this.usersColl.doc(this.uid).set({
         displayName: this.displayName,
