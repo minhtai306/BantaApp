@@ -22,6 +22,7 @@ import {AngularFirestoreModule} from "angularfire2/firestore";
 import {AngularFireDatabase, AngularFireDatabaseModule} from "angularfire2/database";
 import {SMS} from '@ionic-native/sms'
 import {FCM} from "@ionic-native/fcm";
+import { SmsProvider } from '../providers/sms/sms';
 
 export const firebaseconfig = {
   apiKey: "AIzaSyB70l8eKDrXgg46VMwUu6Z9HSvZseOfiYk",
@@ -72,7 +73,8 @@ export const firebaseconfig = {
     SMS,
     FCM,
     AngularFireDatabase,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    SmsProvider
   ]
 })
 export class AppModule {}
