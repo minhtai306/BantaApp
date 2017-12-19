@@ -6,6 +6,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+import { UserprofilePage } from '../pages/userprofile/userprofile';
 import {RegisterPage} from "../pages/register/register";
 import {RadiostationsPage} from "../pages/radiostations/radiostations";
 import {VerificationPage} from "../pages/verification/verification";
@@ -58,6 +59,7 @@ export const firebaseconfig = {
     ChatPage,
     TextsPage,
     SearchPipe,
+    UserprofilePage,
     TruncatePipe
   ],
   imports: [
@@ -82,7 +84,8 @@ export const firebaseconfig = {
     AdminTopicPage,
     OptionsPage,
     ChatPage,
-    TextsPage
+    TextsPage,
+    UserprofilePage
   ],
   providers: [
     StatusBar,

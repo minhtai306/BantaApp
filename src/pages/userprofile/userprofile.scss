@@ -1,0 +1,26 @@
+page-userprofile {
+
+  #profile_img {
+    overflow: hidden;
+    border-radius: 50%;
+    width: 30%;
+    display: inline-block;
+    position: relative;
+
+  }
+
+  #interact_items {
+    display: inline-block;
+    vertical-align:top;
+  }
+
+  #follow_button {
+    display: inline-block;
+    margin-left: 10px;
+  }
+
+  #follow_button .ion-button {
+    padding: 0px;
+  }
+
+}

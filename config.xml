@@ -82,6 +82,7 @@
             <path url="/__/auth/callback" />
         </host>
     </universal-links>
+
     <allow-navigation href="http://10.0.0.1:8100" />
     <engine name="android" spec="~4.4.0" />
     <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />

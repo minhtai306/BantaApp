@@ -1,0 +1,63 @@
+<!--
+  Generated template for the UserprofilePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>User Profile</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-item id="profile_head">
+    <div id="profile_img">
+      <img src='assets/imgs/radiostation-temp-icon.png'>
+    </div>
+
+    <div id="interact_items">
+      <ion-item class="follow_numbers">21 <span class="follow_item">Followers</span></ion-item>
+      <ion-item class="follow_numbers">25 <span class="follow_item">Following</span></ion-item>
+      <button ion-button round id="follow_button">Follow</button>
+    </div>
+  </ion-item>
+
+  <ion-item>
+    <div id="profile_desc">
+      <h3 id="profile_name">Max</h3>
+      <p id="profile_info">
+        I am a Banta User
+      <br>More info goes here
+      </p>
+    </div>
+  </ion-item>
+
+  <ion-list>
+    <ion-item>
+      <ion-input type="text" [readonly]="isReadonly()" placeholder="First name" ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input type="text" [readonly]="isReadonly()" placeholder="Last name"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input type="text" [readonly]="isReadonly()" placeholder="Phone Number"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input type="email" [readonly]="isReadonly()" placeholder="Email"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input type="text" [readonly]="isReadonly()" placeholder="Address"></ion-input>
+    </ion-item>
+
+  </ion-list>
+
+
+</ion-content>
