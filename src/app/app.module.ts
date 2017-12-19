@@ -25,8 +25,15 @@ import {SMS} from '@ionic-native/sms'
 import {FCM} from "@ionic-native/fcm";
 import { RadiostationProvider } from '../providers/radiostation/radiostation';
 import { SmsProvider } from '../providers/sms/sms';
+import {PopupProvider} from "../providers/popup/popup";
 
 import {SearchPipe} from "../pipes/search/search";
+import { FirebaseCloudMsgProvider } from '../providers/firebase-cloud-msg/firebase-cloud-msg';
+import {HttpClientModule} from "@angular/common/http";
+import { TextProvider } from '../providers/text/text';
+import {TruncatePipe} from "../pipes/truncate/truncate";
+import { UserProvider } from '../providers/user/user';
+import {MomentModule} from "angular2-moment";
 
 export const firebaseconfig = {
   apiKey: "AIzaSyB70l8eKDrXgg46VMwUu6Z9HSvZseOfiYk",
@@ -50,7 +57,8 @@ export const firebaseconfig = {
     OptionsPage,
     ChatPage,
     TextsPage,
-    SearchPipe
+    SearchPipe,
+    TruncatePipe
   ],
   imports: [
     BrowserModule,
@@ -59,6 +67,8 @@ export const firebaseconfig = {
     AngularFireDatabaseModule,
     AngularFirestoreModule,
     AngularFireAuthModule,
+    HttpClientModule,
+    MomentModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -82,7 +92,11 @@ export const firebaseconfig = {
     AngularFireDatabase,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     RadiostationProvider,
-    SmsProvider
+    SmsProvider,
+    PopupProvider,
+    FirebaseCloudMsgProvider,
+    TextProvider,
+    UserProvider,
   ]
 })
 export class AppModule {}

@@ -7,6 +7,12 @@ import * as firebase from "firebase";
 import {AngularFireAuth} from "angularfire2/auth";
 import moment from 'moment'
 import {ChatPage} from "../chat/chat";
+import {SmsProvider} from "../../providers/sms/sms";
+import {FirebaseCloudMsgProvider} from "../../providers/firebase-cloud-msg/firebase-cloud-msg";
+import {RadiostationProvider} from "../../providers/radiostation/radiostation";
+import {TextProvider} from "../../providers/text/text";
+import {UserProvider} from "../../providers/user/user";
+
 /**
  * Generated class for the TextsPage page.
  *
@@ -24,47 +30,74 @@ export class TextsPage {
   private textColl:AngularFireList<any>
   private texts:Observable<any[]>;
 
+  private radiostation:string;
+  private frequency:string;
+
   private text:string
   private uid:string;
   private displayName:string;
-  private radiostation:string;
-  private freq:string;
   private photoUrl:string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,private afstore:AngularFireDatabase,private afauth:AngularFireAuth) {
+  private timestamp:Date
+
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private afstore:AngularFireDatabase,
+    private afauth:AngularFireAuth,
+    private sms:SmsProvider,
+    private fcm:FirebaseCloudMsgProvider,
+    private rdProvider:RadiostationProvider,
+    private txtProvider:TextProvider,
+    private usrProvider:UserProvider
+  ) {
+    this.textColl = this.afstore.list('/texts/' + this.rdProvider.key, ref => ref.orderByChild('createdAt'));
+    this.texts = this.textColl.snapshotChanges().map(text => {
+      return text.map(t => ({
+        key: t.payload.key,
+        ...t.payload.val(),
+        time: Math.abs(t.payload.val().createdAt)
+      }))
+    })
+  }
+
+
+  ionViewDidLoad() {
+    //this.fcm.subscribe(this.rdProvider.key)
+    //this.fcm.listen()
+
     this.uid = this.afauth.auth.currentUser.uid
     this.displayName = this.afauth.auth.currentUser.displayName
     this.photoUrl = this.afauth.auth.currentUser.photoURL
+    if(!this.photoUrl){this.photoUrl = "assets/imgs/empty-avatar.jpg"}
 
-    console.log(this.navParams.data)
-    this.radiostation = this.navParams.data.title
-    this.freq = this.navParams.data.frequency
-  }
 
-  ionViewDidLoad() {
-    this.textColl = this.afstore.list('/texts/'+ this.navParams.data.key,ref => ref.orderByChild('createdAt'));
-    this.texts = this.textColl.snapshotChanges().map(text=>{
-      return text.map(t=>({
-        key:t.payload.key,
-        ...t.payload.val(),
-        date:moment.unix(t.payload.val().createdAt).format("MMM Do YY"),
-        time:moment.unix(t.payload.val().createdAt).format('h:mm:ss a')
-      }))
-    })
-    console.log(this.texts)
+    this.radiostation = this.rdProvider.radiostationName
+    this.frequency = this.rdProvider.frequency
   }
 
 
   sendText(){
-    let createdAt = 0 - moment().valueOf()
-    let body = {uid:this.uid,photoUrl:this.photoUrl,displayName:this.displayName,noMsg: 0 ,text:this.text,createdAt:createdAt}
+    let createdAt = 0 - moment().unix()
+    let body = {
+      uid:this.uid,
+      photoUrl:this.photoUrl,
+      displayName: this.displayName,
+      noMsg: 0 ,
+      text:this.text,
+      createdAt:createdAt
+    }
+    //0413424810
+    this.sms.sendSMS(this.rdProvider.phoneNumber,this.text)
     this.textColl.push(body)
+    this.fcm.sendNotification(this.displayName,this.text)
     this.text = '';
   }
 
   navToChat(text){
     //text
-    this.navCtrl.push(ChatPage,{text:text,radiostation:this.radiostation,freq:this.freq})
+    this.txtProvider.setText(text);
+    this.navCtrl.push(ChatPage)
   }
 
 }

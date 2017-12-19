@@ -1,8 +1,11 @@
 import { NgModule } from '@angular/core';
 import { SearchPipe } from './search/search';
+import { TruncatePipe } from './truncate/truncate';
 @NgModule({
-	declarations: [SearchPipe],
+	declarations: [SearchPipe,
+    TruncatePipe],
 	imports: [],
-	exports: [SearchPipe]
+	exports: [SearchPipe,
+    TruncatePipe]
 })
 export class PipesModule {}
