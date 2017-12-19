@@ -7,23 +7,37 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>{{radiostation}} {{freq}} FM</ion-title>
+    <ion-title>{{radiostation}} {{frequency}} FM</ion-title>
   </ion-navbar>
-  <div class="text-container">
-    <ion-item no-lines class="text-content">
-      <ion-avatar item-start>
-        <img src='{{photoUrl}}'>
-      </ion-avatar>
-      <h2><b>{{textDisplayName}}</b></h2>
-      <h3>{{time}} {{date}}</h3>
-    </ion-item>
-    <ion-item no-lines text-wrap>
-      <p>{{text}}</p>
-    </ion-item>
 
 
+    <div class="text-container">
 
-  <div class="social-options">
+      <ion-item no-lines class="text-content">
+
+        <ion-avatar item-start>
+          <img src='{{textPhotoUrl}}'>
+        </ion-avatar>
+
+        <div class="text-name-time">
+          <h2><b>{{textDisplayName}}</b></h2>
+          <h3>{{(time|amFromUnix)|amTimeAgo}}</h3>
+        </div>
+
+      </ion-item>
+
+      <ion-item no-lines text-wrap>
+        <div *ngIf="text.length >= 100">
+        <p>{{text|truncate: seeMoreFlag}}</p>
+        <a (click)="toggleFullText()">See More</a>
+        </div>
+
+        <div *ngIf="text.length < 100">
+          <p>{{text}}</p>
+        </div>
+      </ion-item>
+
+      <div class="social-options">
 
 
       <div class="vote-container">
@@ -34,7 +48,7 @@
 
     <div class="chat-container">
       <ion-icon name="chatbubbles"></ion-icon>
-      <p>1001</p>
+      <p>{{textNoMsg}}</p>
     </div>
 
 
@@ -45,9 +59,9 @@
      <!-- <button *ngIf="!followFlag" class="general-button" (click)="toggleFollow($event.target)">Follow</button>
       <button *ngIf="followFlag" class="following-button" (click)="toggleFollow($event.target)">Following</button> -->
 
+  </div>
+  </div>
 
-  </div>
-  </div>
 
 
 </ion-header>

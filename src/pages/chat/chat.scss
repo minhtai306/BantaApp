@@ -70,6 +70,15 @@ page-chat {
   background-color: #bfbfbf;
   .text-content{
     border-radius: 10px 10px 0px 0px;
+    .text-name-time{
+      display: flex;
+      h2{
+        margin-right: auto;
+      }
+    }
+    .text-text{
+      display: flex !important;
+    }
   }
 
 }
