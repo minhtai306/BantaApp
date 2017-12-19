@@ -15,7 +15,6 @@ export class SearchPipe implements PipeTransform {
    * Takes a value and makes it lowercase.
    */
   transform(radiostations: any[], searchString: string): any[] {
-    console.log(searchString)
     if(searchString!=''){
       return radiostations.filter(radiostation=>{
         if(radiostation.title.includes(searchString)){

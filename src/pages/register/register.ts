@@ -3,6 +3,9 @@ import { IonicPage, NavController, NavParams,PopoverController } from 'ionic-ang
 import {VerificationPage} from "../verification/verification";
 import {PopoverPage} from "../popover/popover";
 import {AngularFireAuth} from "angularfire2/auth";
+import {AngularFireDatabase} from "angularfire2/database";
+import {UserProvider} from "../../providers/user/user";
+import {RadiostationsPage} from "../radiostations/radiostations";
 
 /**
  * Generated class for the RegisterPage page.
@@ -26,7 +29,14 @@ export class RegisterPage {
   private  lastName:string;
 
   registerDisabled: boolean = true;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public popCtrl: PopoverController,private afauth:AngularFireAuth) {
+
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public popCtrl: PopoverController,
+    private afauth:AngularFireAuth,
+    private afstore:AngularFireDatabase,
+    private usrProvider:UserProvider) {
   }
 
   terms(){
@@ -40,15 +50,7 @@ export class RegisterPage {
         .then((result) => {
           result.updateProfile({displayName:this.username})
             .then((user)=> {
-              console.log("new")
-              console.log(user)
-              console.log(result)
-              this.navCtrl.push(VerificationPage, {
-                uid: result.uid,
-                displayName: result.displayName,
-                email: result.email,
-                provider: result.providerId
-              })
+              this.navCtrl.pop()
             })
         })
         .catch((error) => {

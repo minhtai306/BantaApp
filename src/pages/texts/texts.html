@@ -8,7 +8,7 @@
 
   <ion-navbar>
 
-    <ion-title>{{radiostation}} {{freq}}</ion-title>
+    <ion-title>{{radiostation}} {{frequency}}</ion-title>
     <img src='assets/imgs/radiostation-temp-icon.png' width="40px" height="40px">
   </ion-navbar>
 
@@ -25,7 +25,7 @@
 
       <div class="text-name-time">
         <h2><b>{{text.displayName}}</b></h2>
-        <p>{{text.time}}</p>
+        <p>{{(text.time| amFromUnix) | amTimeAgo}}</p>
       </div>
 
       <p>{{text.text}}</p>
@@ -40,7 +40,7 @@
 
         <div class="text-chat-opts">
             <ion-icon name="chatbubbles"></ion-icon>
-            <p>1001</p>
+            <p>{{text.noMsg}}</p>
         </div>
 
 

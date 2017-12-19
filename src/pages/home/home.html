@@ -1,5 +1,6 @@
 
 
+
 <ion-content padding ion-fixed>
 
 
@@ -7,7 +8,8 @@
     <img src='assets/imgs/banner.png'>
   </div>
 
-  <ion-list>
+  <ion-spinner *ngIf="loading"></ion-spinner>
+  <ion-list *ngIf="!loading">
 
     <ion-item>
       <ion-input type="text" [(ngModel)]="email" placeholder="Username"></ion-input>

@@ -7,6 +7,11 @@ import {VerificationPage} from "../verification/verification";
 import {AngularFireAuth} from "angularfire2/auth";
 import * as firebase from 'firebase/app'
 import {AngularFirestore} from "angularfire2/firestore";
+import {AngularFireDatabase, AngularFireList} from "angularfire2/database";
+import {User} from "firebase";
+import {UserProvider} from "../../providers/user/user";
+
+
 
 @Component({
   selector: 'page-home',
@@ -14,11 +19,22 @@ import {AngularFirestore} from "angularfire2/firestore";
 })
 export class HomePage {
 
+  private userCollection: AngularFireList<any>
   private email:string;
   private password:string
-  constructor(public navCtrl: NavController,public popCtrl: PopoverController,private afauth:AngularFireAuth,private afstore:AngularFirestore) {
-    this.afauth.auth.onAuthStateChanged(currentUser => {
-      if(currentUser){
+
+  private loading:boolean;
+
+  constructor(
+    public navCtrl: NavController,
+    public popCtrl: PopoverController,
+    private afauth:AngularFireAuth,
+    private afstore:AngularFireDatabase,
+    private usrProvider:UserProvider
+  ) {
+
+        this.userCollection = this.afstore.list('users');
+        /*
         this.afstore.collection("Users").doc(currentUser.uid).ref.get()
           .then(doc => {
             if(doc.exists){
@@ -34,9 +50,38 @@ export class HomePage {
                 provider: currentUser.providerId
               })
             }
-          })
+          })*/
+  }
+
+  ionViewDidLoad() {
+    this.afauth.auth.onAuthStateChanged(currentUser => {
+      if(currentUser) {
+        this.loading = true
+        console.log(currentUser)
+        let user = this.afstore.object('users/'+currentUser.uid)
+        user.valueChanges().subscribe(usr=>{
+          if(usr){
+              console.log("userfound")
+              this.navCtrl.push(RadiostationsPage)
+          }
+          else{
+            let userData =  {
+              email: currentUser.email,
+              displayName:currentUser.displayName,
+              photoURL:currentUser.photoURL,
+            };
+
+            user.set(userData);
+            this.usrProvider.setUser(userData)
+            this.navCtrl.push(RadiostationsPage)
+          }
+        })
+        }
+        else {
+          this.loading = false
       }
-    })
+      })
+
   }
 
   resetInput(){
@@ -68,7 +113,11 @@ export class HomePage {
  providerLogin(provider) {
     this.afauth.auth.signInWithRedirect(provider).then(()=>{
       this.afauth.auth.getRedirectResult()
-        .then(result => { console.log(result)})
+        .then(result => {
+          console.log(result)
+          this.loading = true
+
+        })
         .catch(error => { console.log(error)})
     })
   }

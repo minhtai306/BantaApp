@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import {NavController, NavParams} from 'ionic-angular';
 import {AngularFireAuth} from "angularfire2/auth";
-import { SMS } from '@ionic-native/sms'
+//import { SMS } from '@ionic-native/sms'
 import {RadiostationsPage} from "../radiostations/radiostations";
 import {AngularFirestore, AngularFirestoreCollection} from "angularfire2/firestore";
 import {User} from "../../assets/config/interfaces";
-import {SmsProvider} from "../../providers/sms/sms";
+//import {SmsProvider} from "../../providers/sms/sms";
 
 @Component({
   selector: 'page-verification',
@@ -28,10 +28,14 @@ export class VerificationPage {
   randomCode:string;
   options:any;
 
-  constructor(public navCtrl: NavController,public navParams: NavParams,
-    private smsVar: SMS,private afauth:AngularFireAuth,
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    //private smsVar: SMS,
+    private afauth:AngularFireAuth,
     private afstore:AngularFirestore,
-    private smsProvider: SmsProvider) {
+    //private smsProvider: SmsProvider
+  ) {
     this.usersColl = this.afstore.collection("Users");
     this.uid = this.navParams.get("uid");
     this.displayName = this.navParams.get("displayName");
@@ -62,7 +66,7 @@ export class VerificationPage {
       alert("Please enter a valid SMS number");
     }
     else {
-      this.smsProvider.sendSMS(this.inputSMSNumber, this.randomCode);
+      //this.smsProvider.sendSMS(this.inputSMSNumber, this.randomCode);
       //this.sendSMS();
     }
 
@@ -71,13 +75,14 @@ export class VerificationPage {
   sendSMS(){
 
 
-
+/*
     this.smsVar.send(this.inputSMSNumber, this.randomCode, this.options)
       .then(()=>{
         alert("SMS Success");
       },()=>{
         alert("SMS Failed");
       });
+      */
   }
 
   submit(){
@@ -89,7 +94,7 @@ export class VerificationPage {
         displayName: this.displayName,
         email: this.email,
         phone: this.inputSMSNumber,
-        provider: this.provider
+        provider: this.provider,
       })
       this.navCtrl.push(RadiostationsPage)
 
@@ -105,4 +110,7 @@ export class VerificationPage {
     this.navCtrl.popToRoot();
   }
 
+  continue(){
+    this.navCtrl.push(RadiostationsPage)
+  }
 }
