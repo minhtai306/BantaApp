@@ -6,11 +6,14 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { HomePage } from '../pages/home/home';
 import { VerificationPage } from '../pages/verification/verification';
 import {RadiostationProvider} from "../providers/radiostation/radiostation";
+//
+import { UserprofilePage } from '../pages/userprofile/userprofile';
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   rootPage:any = HomePage;
+  //rootPage:any = UserprofilePage;
   radiostation:RadiostationProvider
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,radiostation:RadiostationProvider) {
