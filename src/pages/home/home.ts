@@ -1,16 +1,11 @@
 import { Component } from '@angular/core';
-import {NavController, PopoverController} from 'ionic-angular';
+import {NavController} from 'ionic-angular';
 import {RegisterPage} from "../register/register";
 import {RadiostationsPage} from "../radiostations/radiostations";
-import {PopoverPage} from '../popover/popover'
-import {VerificationPage} from "../verification/verification";
 import {AngularFireAuth} from "angularfire2/auth";
 import * as firebase from 'firebase/app'
-import {AngularFirestore} from "angularfire2/firestore";
-import {AngularFireDatabase, AngularFireList} from "angularfire2/database";
-import {User} from "firebase";
-import {UserProvider} from "../../providers/user/user";
-
+import {FirebaseAuthProvider} from "../../providers/firebase-auth/firebase-auth";
+import {FirebaseDatabaseProvider} from "../../providers/firebase-database/firebase-database";
 
 
 @Component({
@@ -19,7 +14,6 @@ import {UserProvider} from "../../providers/user/user";
 })
 export class HomePage {
 
-  private userCollection: AngularFireList<any>
   private email:string;
   private password:string
 
@@ -27,60 +21,39 @@ export class HomePage {
 
   constructor(
     public navCtrl: NavController,
-    public popCtrl: PopoverController,
     private afauth:AngularFireAuth,
-    private afstore:AngularFireDatabase,
-    private usrProvider:UserProvider
+    private fbAuth:FirebaseAuthProvider,
+    private fbData:FirebaseDatabaseProvider
   ) {
-
-        this.userCollection = this.afstore.list('users');
-        /*
-        this.afstore.collection("Users").doc(currentUser.uid).ref.get()
-          .then(doc => {
-            if(doc.exists){
-              console.log("doc exsit")
-              this.navCtrl.push(RadiostationsPage)
-            }
-            else{
-              console.log("doc doesnt exist")
-              this.navCtrl.push(VerificationPage,{
-                uid:currentUser.uid,
-                displayName: currentUser.displayName,
-                email: currentUser.email,
-                provider: currentUser.providerId
-              })
-            }
-          })*/
   }
 
   ionViewDidLoad() {
     this.afauth.auth.onAuthStateChanged(currentUser => {
+      //if there is a currentUser
       if(currentUser) {
         this.loading = true
-        console.log(currentUser)
-        let user = this.afstore.object('users/'+currentUser.uid)
-        user.valueChanges().subscribe(usr=>{
-          if(usr){
-              console.log("userfound")
-              this.navCtrl.push(RadiostationsPage)
-          }
-          else{
-            let userData =  {
-              email: currentUser.email,
-              displayName:currentUser.displayName,
-              photoURL:currentUser.photoURL,
-            };
+        this.fbData.userExists(currentUser.uid)
+          .then(result => {
+            if(!result){
 
-            user.set(userData);
-            this.usrProvider.setUser(userData)
+              this.fbData.addUser(currentUser.uid, {
+                displayName:currentUser.displayName,
+                email:currentUser.email,
+                photoURL:currentUser.photoURL,
+                info: 'I am a Banta User',
+                noFollowing: 0,
+                noFollowers: 0
+              })
+            }
             this.navCtrl.push(RadiostationsPage)
-          }
-        })
-        }
-        else {
-          this.loading = false
+          })
+          .catch(err => {
+            console.log(err)
+          })
+
       }
-      })
+      else {  this.loading = false  }
+    })
 
   }
 
@@ -93,45 +66,17 @@ export class HomePage {
     this.navCtrl.push(RegisterPage)
   }
 
-  userLogin(){
-    this.afauth.auth.signInWithEmailAndPassword(this.email,this.password)
-      .then((result) => {
-        console.log("success");
-      })
-      .catch((error)=>{
-        console.log(error);
-        var data = {
-          title: "Error",
-          content: error.message
-        }
-        this.resetInput()
-        this.popCtrl.create(PopoverPage,data).present()
-      })
-  }
-
-
- providerLogin(provider) {
-    this.afauth.auth.signInWithRedirect(provider).then(()=>{
-      this.afauth.auth.getRedirectResult()
-        .then(result => {
-          console.log(result)
-          this.loading = true
-
-        })
-        .catch(error => { console.log(error)})
-    })
-  }
 
   providercheck(provider){
     switch(provider){
       case 'google.com':
-        this.providerLogin(new firebase.auth.GoogleAuthProvider());
+        this.fbAuth.providerLogin(new firebase.auth.GoogleAuthProvider());
         break;
       case 'twitter.com':
-        this.providerLogin(new firebase.auth.TwitterAuthProvider());
+        this.fbAuth.providerLogin(new firebase.auth.TwitterAuthProvider());
         break;
       case 'facebook':
-        this.providerLogin(new firebase.auth.FacebookAuthProvider());
+        this.fbAuth.providerLogin(new firebase.auth.FacebookAuthProvider());
         break;
     }
   }

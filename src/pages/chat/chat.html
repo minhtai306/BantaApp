@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>{{radiostation}} {{frequency}} FM</ion-title>
+    <ion-title>{{radiostation}} {{frequency}} </ion-title>
   </ion-navbar>
 
 
@@ -16,46 +16,43 @@
       <ion-item no-lines class="text-content">
 
         <ion-avatar item-start>
-          <img src='{{textPhotoUrl}}'>
+          <img src='{{(text|async)?.photoUrl}}'>
         </ion-avatar>
 
         <div class="text-name-time">
-          <h2><b>{{textDisplayName}}</b></h2>
-          <h3>{{(time|amFromUnix)|amTimeAgo}}</h3>
+          <h2><b>{{(text|async)?.displayName}}</b></h2>
+          <h3>{{((text|async)?.createdAt|abs)|amFromUnix|amTimeAgo}}</h3>
         </div>
 
       </ion-item>
 
       <ion-item no-lines text-wrap>
-        <div *ngIf="text.length >= 100">
-        <p>{{text|truncate: seeMoreFlag}}</p>
-        <a (click)="toggleFullText()">See More</a>
+        <div *ngIf="(text|async)?.text.length >=100">
+        <p>{{(text|async)?.text|truncate: seeMoreFlag}}</p>
         </div>
 
-        <div *ngIf="text.length < 100">
-          <p>{{text}}</p>
+        <div *ngIf="(text|async)?.text.length < 100">
+          <p>{{(text|async)?.text}}</p>
         </div>
       </ion-item>
 
       <div class="social-options">
 
 
-      <div class="vote-container">
-        <ion-icon name="arrow-round-up"></ion-icon>
-        <p>999</p>
-        <ion-icon name="arrow-round-down"></ion-icon>
-      </div>
+        <div class="vote-container" (click)=like()>
+          <ion-icon name="ios-heart-outline"></ion-icon>
+          <p>{{(text|async)?.noLikes}}</p>
+        </div>
 
     <div class="chat-container">
-      <ion-icon name="chatbubbles"></ion-icon>
-      <p>{{textNoMsg}}</p>
+      <ion-icon name="ios-chatbubbles-outline"></ion-icon>
+      <p>{{(text|async)?.noMsg}}</p>
     </div>
 
 
-    <div class="social-options-buttons">
-    <button class="general-button">Like <ion-icon name="heart-outline"></ion-icon></button>
-      <button class="general-button">Share <ion-icon name="share-alt"></ion-icon></button>
-    </div>
+        <div class="text-social-opts">
+          <ion-icon (click)="socialShareOpt()" name="share-alt"></ion-icon>
+        </div>
      <!-- <button *ngIf="!followFlag" class="general-button" (click)="toggleFollow($event.target)">Follow</button>
       <button *ngIf="followFlag" class="following-button" (click)="toggleFollow($event.target)">Following</button> -->
 

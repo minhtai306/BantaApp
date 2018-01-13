@@ -2,16 +2,15 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {AngularFireDatabase, AngularFireList} from "angularfire2/database";
 import {Observable} from "rxjs/Observable";
-import {Text, TextId} from "../../assets/config/interfaces";
-import * as firebase from "firebase";
 import {AngularFireAuth} from "angularfire2/auth";
 import moment from 'moment'
 import {ChatPage} from "../chat/chat";
 import {SmsProvider} from "../../providers/sms/sms";
 import {FirebaseCloudMsgProvider} from "../../providers/firebase-cloud-msg/firebase-cloud-msg";
-import {RadiostationProvider} from "../../providers/radiostation/radiostation";
-import {TextProvider} from "../../providers/text/text";
-import {UserProvider} from "../../providers/user/user";
+import {PopoverController} from "ionic-angular";
+import {SocialsharePage} from "../socialshare/socialshare";
+import {FirebaseDatabaseProvider} from "../../providers/firebase-database/firebase-database";
+import {UserprofilePage} from "../userprofile/userprofile";
 
 /**
  * Generated class for the TextsPage page.
@@ -29,6 +28,7 @@ export class TextsPage {
 
   private textColl:AngularFireList<any>
   private texts:Observable<any[]>;
+  private replies:Observable<any[]>
 
   private radiostation:string;
   private frequency:string;
@@ -38,7 +38,6 @@ export class TextsPage {
   private displayName:string;
   private photoUrl:string;
 
-  private timestamp:Date
 
   constructor(
     public navCtrl: NavController,
@@ -47,33 +46,22 @@ export class TextsPage {
     private afauth:AngularFireAuth,
     private sms:SmsProvider,
     private fcm:FirebaseCloudMsgProvider,
-    private rdProvider:RadiostationProvider,
-    private txtProvider:TextProvider,
-    private usrProvider:UserProvider
+    private popCtrl:PopoverController,
+    private fbProv:FirebaseDatabaseProvider
   ) {
-    this.textColl = this.afstore.list('/texts/' + this.rdProvider.key, ref => ref.orderByChild('createdAt'));
-    this.texts = this.textColl.snapshotChanges().map(text => {
-      return text.map(t => ({
-        key: t.payload.key,
-        ...t.payload.val(),
-        time: Math.abs(t.payload.val().createdAt)
-      }))
-    })
-  }
 
+    //retrieve naviagtion paramaters for radiostation
+    this.radiostation = this.navParams.data.title
+    this.frequency = this.navParams.data.frequency
 
-  ionViewDidLoad() {
-    //this.fcm.subscribe(this.rdProvider.key)
-    //this.fcm.listen()
+    //retrieve user information
+    let currentUser = this.afauth.auth.currentUser
+    this.uid = currentUser.uid
+    this.displayName = currentUser.displayName
+    this.photoUrl = currentUser.photoURL
 
-    this.uid = this.afauth.auth.currentUser.uid
-    this.displayName = this.afauth.auth.currentUser.displayName
-    this.photoUrl = this.afauth.auth.currentUser.photoURL
-    if(!this.photoUrl){this.photoUrl = "assets/imgs/empty-avatar.jpg"}
-
-
-    this.radiostation = this.rdProvider.radiostationName
-    this.frequency = this.rdProvider.frequency
+    //get texts to this radiostation
+    this.texts = this.fbProv.getTexts(this.navParams.data.key,this.afauth.auth.currentUser.uid,0)
   }
 
 
@@ -81,23 +69,45 @@ export class TextsPage {
     let createdAt = 0 - moment().unix()
     let body = {
       uid:this.uid,
+      rdId:this.navParams.data.key,
       photoUrl:this.photoUrl,
       displayName: this.displayName,
       noMsg: 0 ,
+      noLikes: 0,
       text:this.text,
       createdAt:createdAt
     }
-    //0413424810
-    this.sms.sendSMS(this.rdProvider.phoneNumber,this.text)
-    this.textColl.push(body)
+
+    //this.sms.sendSMS(this.navParams.data.phoneNumber,this.text)
+    this.fbProv.addText(body)
     this.fcm.sendNotification(this.displayName,this.text)
+
     this.text = '';
   }
 
   navToChat(text){
-    //text
-    this.txtProvider.setText(text);
-    this.navCtrl.push(ChatPage)
+    this.navCtrl.push(ChatPage,{text:text,radiostation:this.navParams.data})
+  }
+
+  socialShareOpt(){
+    this.popCtrl.create(SocialsharePage).present()
+  }
+
+  like(text){
+    this.fbProv.incrementLike(text.key,this.afauth.auth.currentUser.uid)
+  }
+
+  unlike(text){
+    this.fbProv.decrementLike(text.key,this.afauth.auth.currentUser.uid)
+  }
+
+  navtoUserProfile(textUid:string){
+    this.navCtrl.push(UserprofilePage,{uid:textUid})
+  }
+
+ show(text,txtKey){
+    this.replies = this.fbProv.getChats(txtKey)
+    text.showReplies = !text.showReplies
   }
 
 }

@@ -17,50 +17,48 @@
 
 <ion-content>
   <ion-list>
-    <ion-item class="text-container" *ngFor="let text of texts | async" (click)="navToChat(text)" text-wrap no-lines>
+    <ion-item class="text-container" *ngFor="let i = index; let text of texts | async" text-wrap no-lines>
+      <ion-avatar item-start >
+      <img src='{{text.photoUrl}}' (click)="navtoUserProfile(text.uid)">
+      </ion-avatar>
 
-      <ion-avatar item-start>
-      <img src='{{text.photoUrl}}'>
-    </ion-avatar>
-
-      <div class="text-name-time">
+    <div (click)="navToChat(text)">
+      <div class="text-name-time" >
         <h2><b>{{text.displayName}}</b></h2>
         <p>{{(text.time| amFromUnix) | amTimeAgo}}</p>
       </div>
 
       <p>{{text.text}}</p>
-
-      <div class="text-opts">
+    </div>
+      <div class="text-opts" (click)="show(text,text.key)">
 
         <div class="text-up-down-opts">
-            <ion-icon name="arrow-round-up"></ion-icon>
-            <p>21</p>
-            <ion-icon name="arrow-round-down"></ion-icon>
+            <ion-icon (click)="like(text)" name="ios-heart-outline" *ngIf="(text.liked|async)?.like != true"></ion-icon>
+            <ion-icon (click)="unlike(text)" name="ios-heart"        *ngIf="(text.liked|async)?.like == true"></ion-icon>
+          <p>{{text.noLikes}}</p>
         </div>
 
-        <div class="text-chat-opts">
-            <ion-icon name="chatbubbles"></ion-icon>
-            <p>{{text.noMsg}}</p>
+        <div class="text-chat-opts" >
+            <ion-icon name="ios-chatbubbles-outline"></ion-icon>
+            <p >{{text.noMsg}}</p>
         </div>
 
 
         <div class="text-social-opts">
-          <button class="general-button">Reply</button>
-          <button class="general-button">Share</button>
+          <ion-icon (click)="socialShareOpt()" name="share-alt"></ion-icon>
         </div>
 
+
+
+
       </div>
-
-  </ion-item>
-
-
+    </ion-item>
   </ion-list>
-
 </ion-content>
 
 <ion-footer>
   <div class="message-container">
-    <ion-input class="message-input" type="text" placeholder="Text" [(ngModel)]="text"></ion-input>
+    <ion-textarea class="message-input" type="text" placeholder="Text" [(ngModel)]="text"></ion-textarea>
     <button ion-button (click)="sendText()"><ion-icon name="send"> </ion-icon>
     </button>
   </div>

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {AngularFireAuth} from "angularfire2/auth";
 import {AdminradiostationsPage} from "../adminradiostations/adminradiostations";
+import {UserprofilePage} from "../userprofile/userprofile";
 
 /**
  * Generated class for the OptionsPage page.
@@ -30,4 +31,7 @@ export class OptionsPage {
     this.navCtrl.push(AdminradiostationsPage)
   }
 
+  navtoUserProfile(){
+    this.navCtrl.push(UserprofilePage,{uid:this.afauth.auth.currentUser.uid})
+  }
 }

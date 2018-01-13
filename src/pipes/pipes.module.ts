@@ -1,11 +1,14 @@
 import { NgModule } from '@angular/core';
 import { SearchPipe } from './search/search';
 import { TruncatePipe } from './truncate/truncate';
+import { AbsPipe } from './abs/abs';
 @NgModule({
 	declarations: [SearchPipe,
-    TruncatePipe],
+    TruncatePipe,
+    AbsPipe],
 	imports: [],
 	exports: [SearchPipe,
-    TruncatePipe]
+    TruncatePipe,
+    AbsPipe]
 })
 export class PipesModule {}

@@ -7,7 +7,11 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>User Profile</ion-title>
+    <ion-buttons end  *ngIf="this.afauth.auth.currentUser.uid == this.navParams.data.uid">
+      <button ion-button icon-only>
+        <i class="fa fa-pencil fa-2x" aria-hidden="true"></i>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
@@ -16,47 +20,68 @@
 <ion-content padding>
   <ion-item id="profile_head">
     <div id="profile_img">
-      <img src='assets/imgs/radiostation-temp-icon.png'>
+      <img src='{{(user|async)?.photoURL}}'>
     </div>
 
     <div id="interact_items">
-      <ion-item class="follow_numbers">21 <span class="follow_item">Followers</span></ion-item>
-      <ion-item class="follow_numbers">25 <span class="follow_item">Following</span></ion-item>
-      <button ion-button round id="follow_button">Follow</button>
+      <ion-item class="follow_numbers">{{(user|async)?.noFollowers}} <span class="follow_item">Followers</span></ion-item>
+      <ion-item class="follow_numbers">{{(user|async)?.noFollowing}} <span class="follow_item">Following</span></ion-item>
+      <button ion-button round class="follow_button general-button"
+              *ngIf="this.afauth.auth.currentUser.uid != this.navParams.data.uid
+                    && isFollowing != true"
+              (click)="follow()">Follow</button>
+      <button ion-button round class="general-button-clicked"
+              *ngIf="this.afauth.auth.currentUser.uid != this.navParams.data.uid
+                    && isFollowing == true"
+              (click)="unfollow()">Following</button>
     </div>
   </ion-item>
 
   <ion-item>
     <div id="profile_desc">
-      <h3 id="profile_name">Max</h3>
+      <h3 id="profile_name">{{(user|async)?.displayName}}</h3>
       <p id="profile_info">
-        I am a Banta User
+        {{(user|async)?.info}}
       <br>More info goes here
       </p>
     </div>
   </ion-item>
 
   <ion-list>
-    <ion-item>
-      <ion-input type="text" [readonly]="isReadonly()" placeholder="First name" ></ion-input>
-    </ion-item>
+    <ion-item class="text-container" *ngFor="let text of texts | async" text-wrap no-lines>
 
-    <ion-item>
-      <ion-input type="text" [readonly]="isReadonly()" placeholder="Last name"></ion-input>
-    </ion-item>
+      <ion-avatar item-start >
+        <img src='{{text.photoUrl}}'>
+      </ion-avatar>
 
-    <ion-item>
-      <ion-input type="text" [readonly]="isReadonly()" placeholder="Phone Number"></ion-input>
-    </ion-item>
+      <div class="text-name-time" (click)="navToChat(text)">
+        <h2><b>{{text.displayName}}</b></h2>
+        <p>{{(text.time| amFromUnix) | amTimeAgo}}</p>
+      </div>
 
-    <ion-item>
-      <ion-input type="email" [readonly]="isReadonly()" placeholder="Email"></ion-input>
-    </ion-item>
+      <p>{{text.text}}</p>
 
-    <ion-item>
-      <ion-input type="text" [readonly]="isReadonly()" placeholder="Address"></ion-input>
-    </ion-item>
+      <div class="text-opts">
 
+        <div class="text-up-down-opts" (click)="like(text)">
+          <ion-icon name="ios-heart-outline"></ion-icon>
+          <p>{{text.noLikes}}</p>
+        </div>
+
+        <div class="text-chat-opts" >
+          <ion-icon name="ios-chatbubbles-outline"></ion-icon>
+          <p >{{text.noMsg}}</p>
+        </div>
+
+
+        <div class="text-social-opts">
+          <ion-icon (click)="socialShareOpt()" name="share-alt"></ion-icon>
+        </div>
+
+      </div>
+
+
+    </ion-item>
   </ion-list>
 
 

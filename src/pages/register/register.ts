@@ -4,7 +4,6 @@ import {VerificationPage} from "../verification/verification";
 import {PopoverPage} from "../popover/popover";
 import {AngularFireAuth} from "angularfire2/auth";
 import {AngularFireDatabase} from "angularfire2/database";
-import {UserProvider} from "../../providers/user/user";
 import {RadiostationsPage} from "../radiostations/radiostations";
 
 /**
@@ -36,7 +35,7 @@ export class RegisterPage {
     public popCtrl: PopoverController,
     private afauth:AngularFireAuth,
     private afstore:AngularFireDatabase,
-    private usrProvider:UserProvider) {
+  ) {
   }
 
   terms(){

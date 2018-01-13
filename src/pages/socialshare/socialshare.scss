@@ -1,0 +1,27 @@
+page-socialshare {
+  div{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    ion-icon{
+      font-size: xx-large !important;
+    }
+  }
+
+  #google-login-button{
+    background-color: #DC4A38;
+  }
+
+  #facebook-login-button{
+    color: #4267B2;
+  }
+  #twitter-login-button{
+    color: #1DA1F2;
+  }
+  #instagram-logo{
+    color: #B132A4;
+  }
+  #whatsapp-logo{
+    color: #32db64;
+  }
+}

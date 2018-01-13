@@ -14,6 +14,7 @@ export class FirebaseAuthProvider {
   }
 
   providerLogin(provider) {
+    console.log("login in")
     this.afauth.auth.signInWithRedirect(provider).then(()=>{
       this.afauth.auth.getRedirectResult()
         .then(result => { console.log(result)})
