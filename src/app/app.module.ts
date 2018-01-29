@@ -17,6 +17,8 @@ import {OptionsPage} from "../pages/options/options";
 import {ChatPage} from "../pages/chat/chat";
 import {TextsPage} from "../pages/texts/texts";
 import {SocialsharePage} from "../pages/socialshare/socialshare";
+import {OtherPage} from "../pages/other/other";
+import {TextboxPage} from "../pages/textbox/textbox";
 
 //providers
 import { SmsProvider } from '../providers/sms/sms';
@@ -71,7 +73,9 @@ export const firebaseconfig = {
     UserprofilePage,
     SocialsharePage,
     TruncatePipe,
-    AbsPipe
+    AbsPipe,
+    OtherPage,
+    TextboxPage
   ],
   imports: [
     BrowserModule,
@@ -96,7 +100,9 @@ export const firebaseconfig = {
     ChatPage,
     TextsPage,
     UserprofilePage,
-    SocialsharePage
+    SocialsharePage,
+    OtherPage,
+    TextboxPage
   ],
   providers: [
     StatusBar,

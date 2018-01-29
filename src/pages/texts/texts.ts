@@ -78,7 +78,7 @@ export class TextsPage {
       createdAt:createdAt
     }
 
-    //this.sms.sendSMS(this.navParams.data.phoneNumber,this.text)
+    this.sms.sendSMS(this.navParams.data.phoneNumber,this.text)
     this.fbProv.addText(body)
     this.fcm.sendNotification(this.displayName,this.text)
 
@@ -87,22 +87,6 @@ export class TextsPage {
 
   navToChat(text){
     this.navCtrl.push(ChatPage,{text:text,radiostation:this.navParams.data})
-  }
-
-  socialShareOpt(){
-    this.popCtrl.create(SocialsharePage).present()
-  }
-
-  like(text){
-    this.fbProv.incrementLike(text.key,this.afauth.auth.currentUser.uid)
-  }
-
-  unlike(text){
-    this.fbProv.decrementLike(text.key,this.afauth.auth.currentUser.uid)
-  }
-
-  navtoUserProfile(textUid:string){
-    this.navCtrl.push(UserprofilePage,{uid:textUid})
   }
 
  show(text,txtKey){

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {AngularFireAuth} from "angularfire2/auth";
 import {FirebaseDatabaseProvider} from "../../providers/firebase-database/firebase-database";
@@ -39,19 +39,4 @@ export class UserprofilePage {
       .catch(err=>{ this.isFollowing = err          })
 
   }
-
-  follow(){
-    //add new follower
-    this.fbProv.newFollower(this.navParams.data.uid,this.afauth.auth.currentUser.uid)
-    //set following to true
-    this.isFollowing =  true;
-  }
-
-  unfollow(){
-    //remove user following
-    this.fbProv.loseFollower(this.navParams.data.uid,this.afauth.auth.currentUser.uid)
-    //set following to false
-    this.isFollowing = false;
-  }
-
 }

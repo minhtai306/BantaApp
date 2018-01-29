@@ -1,0 +1,44 @@
+.text-container {
+  margin-top: 5px !important;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+}
+page-textbox{
+  ion-avatar{
+    display: flex;
+    align-items: center;
+    img{
+      margin-right: 2%;
+    }
+    .text-name-time{
+      display: flex;
+      flex-grow: 1;
+      align-items: center;
+      h2{
+        margin-right: auto;
+      }
+    }
+  }
+  .text-opts {
+    display: flex;
+    justify-content: space-between;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    padding-top: 2%;
+    .text-opt {
+      display: flex;
+      flex-grow: 1;
+      align-items: center;
+      &.chats{
+        justify-content: center;
+      }
+      &.share{
+        justify-content: flex-end;
+      }
+      * {
+        margin-right: 2%;
+        font-size: large;
+      }
+    }
+
+  }
+}

@@ -39,8 +39,9 @@
       <div class="social-options">
 
 
-        <div class="vote-container" (click)=like()>
-          <ion-icon name="ios-heart-outline"></ion-icon>
+        <div class="vote-container">
+          <ion-icon (click)="like()"   name="ios-heart-outline" *ngIf="(liked|async)?.like != true"></ion-icon>
+          <ion-icon (click)="unlike()" name="ios-heart"         *ngIf="(liked|async)?.like == true"></ion-icon>
           <p>{{(text|async)?.noLikes}}</p>
         </div>
 

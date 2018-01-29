@@ -49,38 +49,7 @@
 
   <ion-list>
     <ion-item class="text-container" *ngFor="let text of texts | async" text-wrap no-lines>
-
-      <ion-avatar item-start >
-        <img src='{{text.photoUrl}}'>
-      </ion-avatar>
-
-      <div class="text-name-time" (click)="navToChat(text)">
-        <h2><b>{{text.displayName}}</b></h2>
-        <p>{{(text.time| amFromUnix) | amTimeAgo}}</p>
-      </div>
-
-      <p>{{text.text}}</p>
-
-      <div class="text-opts">
-
-        <div class="text-up-down-opts" (click)="like(text)">
-          <ion-icon name="ios-heart-outline"></ion-icon>
-          <p>{{text.noLikes}}</p>
-        </div>
-
-        <div class="text-chat-opts" >
-          <ion-icon name="ios-chatbubbles-outline"></ion-icon>
-          <p >{{text.noMsg}}</p>
-        </div>
-
-
-        <div class="text-social-opts">
-          <ion-icon (click)="socialShareOpt()" name="share-alt"></ion-icon>
-        </div>
-
-      </div>
-
-
+      <page-textbox [text]="text"></page-textbox>
     </ion-item>
   </ion-list>
 

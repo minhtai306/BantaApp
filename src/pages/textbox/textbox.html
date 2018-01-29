@@ -1,0 +1,34 @@
+
+<ion-avatar item-start>
+
+  <img src='{{text.photoUrl}}' (click)="navtoUserProfile(text.uid)">
+
+  <div class="text-name-time">
+    <h2><b>{{text.displayName}}</b></h2>
+    <p>{{(text.time| amFromUnix) | amTimeAgo}}</p>
+  </div>
+
+</ion-avatar>
+
+<p>{{text.text}}</p>
+
+<div class="text-opts">
+
+  <div class="text-opt likes">
+    <ion-icon (click)="like(text)" name="ios-heart-outline" *ngIf="(text.liked|async)?.like != true"></ion-icon>
+    <ion-icon (click)="unlike(text)" name="ios-heart" *ngIf="(text.liked|async)?.like == true"></ion-icon>
+    <p>{{text.noLikes}}</p>
+  </div>
+
+  <div class="text-opt chats">
+    <ion-icon name="ios-chatbubbles-outline"></ion-icon>
+    <p>{{text.noMsg}}</p>
+  </div>
+
+
+  <div class="text-opt share">
+    <ion-icon (click)="socialShareOpt()" name="share-alt"></ion-icon>
+  </div>
+
+</div>
+

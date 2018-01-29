@@ -29,6 +29,7 @@ export class ChatPage {
 
   private messages:Observable<Message[]>;
   private text:Observable<Text>
+  private liked:Observable<any>
 
   private radiostation:string;
   private frequency:string;
@@ -63,17 +64,10 @@ export class ChatPage {
 
     //retrieve this text for realtime database
     this.text = this.fbProv.getText(this.navParams.data.text.key)
-
+    this.liked = this.fbProv.likedText(this.navParams.data.text.key,this.afauth.auth.currentUser.uid)
     //retrieve messages to this text from firebase real time database
     this.messages = this.fbProv.getChats(this.navParams.data.text.key)
   }
-    //subsribe to radiostation channel
-    /*
-    this.fcm.subscribeToTopic(this.navParams.data.id);
-    this.fcm.onNotification().subscribe(data=>{
-      console.log(data)
-    })
-    */
   ionViewDidEnter(){
     this.scrollToBottom()
   }
@@ -121,5 +115,9 @@ export class ChatPage {
 
   like(){
     this.fbProv.incrementLike(this.navParams.data.text.key,this.afauth.auth.currentUser.uid)
+  }
+
+  unlike(){
+    this.fbProv.decrementLike(this.navParams.data.text.key,this.afauth.auth.currentUser.uid)
   }
 }

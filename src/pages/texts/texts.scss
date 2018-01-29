@@ -1,53 +1,10 @@
 page-texts {
-  ion-navbar *{
+  ion-navbar * {
     display: flex;
-    img{
+    img {
       border-radius: 100px;
     }
   }
-
-  .text-container{
-    margin-top: 5px !important;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-
-    .text-name-time{
-      display: flex;
-      h2{
-        margin-right: auto;
-      }
-    }
-    .text-opts{
-      display: flex;
-      justify-content: space-between;
-      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-      padding-top: 2%;
-      .text-up-down-opts{
-        display: flex;
-        flex-grow: 1;
-        justify-content: flex-start;
-        align-items: center;
-        *{
-          margin-right: 2%;
-          font-size: large;
-        }
-
-      }
-      .text-chat-opts{
-        display: flex;
-        flex-grow: 1;
-        justify-content: flex-start;
-        align-items: center;
-        *{
-          margin-right: 2%;
-          font-size: large;
-        }
-      }
-      .text-social-opts{
-        display: flex;
-        align-items: center;
-        font-size: large;
-      }
-    }
-  }
-
 }
+
+
