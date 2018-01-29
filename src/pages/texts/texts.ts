@@ -85,13 +85,14 @@ export class TextsPage {
     this.text = '';
   }
 
-  navToChat(text){
-    this.navCtrl.push(ChatPage,{text:text,radiostation:this.navParams.data})
-  }
 
  show(text,txtKey){
     this.replies = this.fbProv.getChats(txtKey)
     text.showReplies = !text.showReplies
+  }
+
+  navToChat(text){
+    this.navCtrl.push(ChatPage,{text:text,radiostation:this.navParams.data})
   }
 
 }

@@ -5,6 +5,7 @@ import {UserprofilePage} from "../userprofile/userprofile";
 import {SocialsharePage} from "../socialshare/socialshare";
 import {AngularFireAuth} from "angularfire2/auth";
 import {FirebaseDatabaseProvider} from "../../providers/firebase-database/firebase-database";
+import {ChatPage} from "../chat/chat";
 
 /**
  * Generated class for the TextboxPage page.
@@ -47,6 +48,10 @@ export class TextboxPage {
 
   navtoUserProfile(textUid:string){
     this.navCtrl.push(UserprofilePage,{uid:textUid})
+  }
+
+  navToChat(text){
+    this.navCtrl.push(ChatPage,{text:text,radiostation:this.navParams.data})
   }
 
 }
